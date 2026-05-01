@@ -1,8 +1,5 @@
 // imports form tookit and for css
-import { getJSONData } from "./Toolkit";
-import "weather-icons/css/weather-icons.css";
-import "weather-icons/css/weather-icons-wind.css";
-import "weather-icons/css/weather-icons-wind.min.css";
+import { getJSONData } from "./Toolkit.js";
 
 // variable declarations
 let citySelect;
@@ -31,7 +28,7 @@ let wind;
 let citiesData = [];
 
 // getting json data for dropdown
-const CITIES_JSON = "/cities.json";
+const CITIES_JSON = "./cities.json";
 
 // loading page spinner
 let spinner = new Spinner({ color: "#FF0000", lines: 12 }).spin(document.querySelector(".g-loading-overlay")
