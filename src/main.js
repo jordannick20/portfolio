@@ -1,6 +1,3 @@
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import "../sass/styles.scss";
-import "spin.js/spin.css";
 import { Spinner } from "spin.js";
 
 window.addEventListener("DOMContentLoaded", () => {
