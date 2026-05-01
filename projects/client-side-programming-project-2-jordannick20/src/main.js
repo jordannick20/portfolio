@@ -1,10 +1,6 @@
-import "../sass/styles.scss";
 import { getJSONData } from "./Toolkit.js";
 import { sendJSONData } from "./Toolkit.js";
-import { Spinner } from "spin.js";
-import sanitized from "sanitized";
 import { cacheImages } from "./Toolkit.js";
-import "spin.js/spin.css";
 // albumData is array
 let albumData = [];
 let currentIndex = 0;
