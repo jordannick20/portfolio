@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Photo album</title>
+        <script type="module" src="src/main.js"></script>
+    </head>
+    <body>
+        <div class="g-loading-overlay"></div>
+        <main id="p-page">
+            <header id="s-header">_Photo.Album v5.0 Vanilla JS with FlexBox / Sass</header>
+            <div id="s-controls">
+                <button id="btnPrevious">Previous</button>
+                <button id="btnNext">Next</button>
+                <button id="btnJumpTo">Jump</button>
+                <button id="btnAddComment">Comment</button>
+                <span id="photoCounter"></span>
+            </div>
+
+            <div id="jumpPanel" class="hidden">
+                <div id="thumbnailContainer"></div>
+            </div>
+            <div id="commentPanel" class="hidden">
+                <textarea id="txtAuthor" type="text" maxlength="40" placeholder="Author"></textarea>
+                <textarea id="txtComment" maxlength="100" placeholder="Comment"></textarea>
+                <button id="btnCommentOK">OK</button>
+            </div>
+
+            <div id="s-album">
+                <img id="photoImage" src="" alt="">
+                <div id="warning"></div>
+                <p id="photoTitle"></p>
+                <p id="photoCaption"></p>
+            </div>
+
+            <div id="commentsList"></div>
+        </main>
+    </body>
+</html>
