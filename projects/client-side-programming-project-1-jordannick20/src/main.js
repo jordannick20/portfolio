@@ -1,7 +1,5 @@
 // imports form tookit and for css
 import { getJSONData } from "./Toolkit";
-import { Spinner } from "spin.js";
-import "spin.js/spin.css";
 import "weather-icons/css/weather-icons.css";
 import "weather-icons/css/weather-icons-wind.css";
 import "weather-icons/css/weather-icons-wind.min.css";
