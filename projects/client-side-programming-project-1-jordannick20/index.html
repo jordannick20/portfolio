@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Boilerplate Project Folder</title>
+        <script type="module" src="src/main.js"></script>
+    </head>
+
+    <body>
+        <div class="g-loading-overlay"></div>
+
+        <main class="g-page">
+            <header id="s-weather-header">
+                <p class="g-Weather-title">Weather Reporter</p>
+                <p class="g-weather-version">Client Side Programing Project 1</p>
+                <p class="g-weather-instructions"> Select a Canadian city to see the current weather report:</p>
+            </header>
+
+            <select id="city-Select"></select>
+
+            <section id="p-weather-content">
+                <div class="weather-elements">
+                    <i class="wi wi-day-sunny"></i>
+                    <p id="description"></p>
+                    <p id="location"></p>
+                </div>
+
+                <div id="s-weather-details">
+                    <div class="weather-thermometer">
+                        <p><i class="wi wi-thermometer"></i> Temperature</p>
+                        <p id="temp-current"></p>
+                        <p id="temp-low"></p>
+                        <p id="temp-high"></p>
+                        <p id="temp-feels"></p>
+                    </div>
+
+                    <div class="weather-Visibility">
+                        <p><i class="wi wi-day-haze"></i> Visibility</p>
+                        <p id="Visibility"></p>
+                    </div>
+
+                    <div class="weather-humidity">
+                        <h4><i class="wi wi-smog"></i> Humidity</h4>
+                        <p id="humidity"></p>
+                    </div>
+
+                    <div class="weather-pressure">
+                        <p><i class="wi wi-strong-wind"></i> Air Pressure</p>
+                        <p id="pressure"></p>
+                    </div>
+
+                    <div class="weather-speed">
+                        <p><i class="wi wi-wind"></i> Wind</p>
+                        <p id="wind-Direction"></p>
+                        <p id="wind-speed"></p>
+                    </div>
+                </div>
+            </section>
+
+            <footer id="s-weather-footer">
+                Powered by
+                <a href="https://openweathermap.org/" target="_blank">openweathermap</a> |
+                <a href="https://erikflowers.github.io/weather-icons/" target="_blank">weather-icons</a>
+            </footer>
+        </main>
+    </body>
+</html>
