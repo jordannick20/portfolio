@@ -1,0 +1,101 @@
+.g-page {
+  background-color: white;
+  font-weight: bold;
+}
+
+.g-loading-overlay {
+  position: fixed;
+  z-index: 999;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  overflow: show;
+  margin: auto;
+  display: block;
+  background-color: green;
+}
+
+.g-Weather-title {
+  font-size: 40px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.g-weather-version {
+  text-align: right;
+  margin: 0px;
+}
+
+.g-weather-instructions {
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+#p-weather-content {
+  font-family: "Courier New", Courier, monospace;
+}
+
+#s-weather-details {
+  justify-content: left;
+  display: grid;
+  grid-template-columns: 170px 150px 140px 170px 170px;
+}
+
+#s-weather-footer {
+  padding-top: 70px;
+  font-size: 20px;
+}
+
+#s-weather-header {
+  padding-left: 5px;
+}
+
+#city-Select {
+  width: 360px;
+  padding: 10px;
+  font-size: 1rem;
+  color: blue;
+  background-color: aqua;
+}
+
+.wi-day-sunny {
+  padding-top: 40px;
+  font-size: 80px;
+}
+
+.wi-thermometer {
+  font-size: 25px;
+}
+
+.wi-day-haze {
+  font-size: 25px;
+}
+
+.wi-smog {
+  font-size: 25px;
+}
+
+.wi-strong-wind {
+  font-size: 25px;
+}
+
+.wi-wind {
+  font-size: 25px;
+}
+
+@media screen and (max-width: 800px) {
+  #s-weather-details {
+    justify-content: left;
+    display: grid;
+    grid-template-columns: 170px;
+    grid-template-rows: auto;
+    grid-template-areas: "one" "two" "three" "four" "five";
+  }
+  .g-weather-version {
+    text-align: left;
+    margin: 0px;
+  }
+}
+
+/*# sourceMappingURL=styles.css.map */

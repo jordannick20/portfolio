@@ -1,5 +1,4 @@
 // imports form tookit and for css
-import "../sass/styles.scss";
 import { getJSONData } from "./Toolkit";
 import { Spinner } from "spin.js";
 import "spin.js/spin.css";
