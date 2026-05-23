@@ -1,5 +1,5 @@
-import { getJSONData } from "./Toolkit.js";
-import { sendJSONData } from "./Toolkit.js";
+//import { getJSONData } from "./Toolkit.js";
+//import { sendJSONData } from "./Toolkit.js";
 import { cacheImages } from "./Toolkit.js";
 // albumData is array
 let albumData = [];
@@ -38,29 +38,81 @@ function hideLoading() {
 }
 
 function loadAlbumData() {
-    const URL = `https://www.seanmorrow.ca/_lessons/albumRetrieve.php?id=w0525971&count=11`;
-    // get the json data run onResponse when the data is returned
-    getJSONData(URL, onResponse, onFailure, true);   
-}
 
-function onResponse(jsonData) {
-    // stores photos in albumData
-    albumData = jsonData.photos;
-    
-    // if no photos stop
-    if (albumData.length == 0) {
-        noPhotos();
-        hideLoading();
-        return;
-    }
+    albumData = [
+        {
+            id: 1,
+            source: "city.jpg",
+            title:"A neat patio ",
+            caption:"A cool patio in the city.",
+            comments: []
+
+        },
+        {
+            id: 2,
+            source: "coldwoods.jpg",
+            title:"Winter woods",
+            caption:"It`s very cold here.",
+            comments: []
+
+        },
+        {
+            id: 3,
+            source: "coolpaint.jpg",
+            title:"a neat painting",
+            caption:"It has a dear in it.",
+            comments: []
+
+        },
+        {
+            id: 4,
+            source: "mount.jpg",
+            title:"mountains",
+            caption:"some mountains.",
+            comments: []
+
+        },
+        {
+            id: 5,
+            source: "plankswamp.jpg",
+            title:"A little pond",
+            caption:"Kinda swampy.",
+            comments: []
+
+        },
+        {
+            id: 6,
+            source: "stones.jpg",
+            title:"Stones",
+            caption:"Stones in the grass.",
+            comments: []
+
+        },
+        {
+            id: 7,
+            source: "watersummer.jpg",
+            title:"A lake in the summer",
+            caption:"A nice place to go swiming",
+            comments: []
+
+        },
+        {
+            id: 8,
+            source: "woods.jpg",
+            title:"Fall woods",
+            caption:"A little foggy",
+            comments: []
+        }
+    ];
+
+    imageFiles = [];
+ 
     // builds array of image files like [img2.jpg img3.jpg]
     for (let i = 0; i < albumData.length; i++) {
         imageFiles.push(albumData[i].source);
     }
     // preload images
     cacheImages(imageFiles, "images/", onImagesCached);
-    console.log(imageFiles);
-    
 }
 // show first photo build thumbnails
 function onImagesCached() {
@@ -148,43 +200,33 @@ function onToggleCommentPanel() {
 }
 
 function onSubmitComment() {
-    // sanitize user input
-    author = sanitized(txtAuthor.value);
-    comment = sanitized(txtComment.value);
-    // if author input is greater than 40 or comment input is greater than 100 stop
-    if (author.length > 40 || comment.length > 100) {
-        warning.innerHTML = "One or more fields are to long!!!";
-        return;
-    }
-    //if (comment.length > 100) {
-    //    console.log("bad");
-    //    return;
-    //}   
+
+    author = txtAuthor.value.trim();
+    comment = txtComment.value.trim();
+
     if (author == "" || comment == "") {
-        warning.innerHTML = "One or more fields are empty!!!";
+        warning.innerHTML = "Please fill out both fields";
         return;
     }
-    
-    // the data that gets sent to the server
-    let sendJSON = {
-        "photoId": albumData[currentIndex].id,
-        "author": author,
-        "comment": comment
-        
+
+    let newComment = {
+        author: author,
+        comment: comment
     };
-    console.log(sendJSON);
-    // where the data gets sent
-    const SEND_URL = `https://www.seanmorrow.ca/_lessons/albumAddComment.php?id=w0525971`;
-    console.log(SEND_URL);
-    warning.innerHTML = " ";
-    // on succsess run onCommentResponse 
-    sendJSONData(SEND_URL, sendJSON, onCommentResponse, onFailure );
 
+    albumData[currentIndex].comments.push(newComment);
+
+    displayComments();
+
+    txtAuthor.value = "";
+    txtComment.value = "";
+
+    warning.innerHTML = "Comment added!";
 }
 
-function onCommentResponse() {
-    loadAlbumData(); 
-}
+//function onCommentResponse() {
+//    loadAlbumData(); 
+//}
 
 function buildJumpPanel() {
     thumbnailContainer.innerHTML = "";
@@ -225,18 +267,18 @@ function updateNavButtons() {
     }
 }
 
-function noPhotos() {
-    photoTitle.textContent = "No photos available";
-    photoCaption.textContent = "";
-    photoCounter.textContent = "Photo 0 of 0";
+//function noPhotos() {
+//    photoTitle.textContent = "No photos available";
+//    photoCaption.textContent = "";
+//    photoCounter.textContent = "Photo 0 of 0";
     // disable all buttons if no photos are returned
-    btnPrevious.disabled = true;
-    btnNext.disabled = true;
-    btnJumpTo.disabled = true;
-    btnAddComment.disabled = true;
+//    btnPrevious.disabled = true;
+//    btnNext.disabled = true;
+//    btnJumpTo.disabled = true;
+//    btnAddComment.disabled = true;
     // commentsList on html
-    commentsList.innerHTML = "No comments because there are no photos";
-}
+//    commentsList.innerHTML = "No comments because there are no photos";
+//}
 
 function main() {
     // query selectors

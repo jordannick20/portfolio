@@ -5,6 +5,13 @@ body {
   background-position: center; /* keeps it centered */
   background-repeat: no-repeat;
   margin: 0px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
 
 .g-loading-overlay {
@@ -132,6 +139,7 @@ section p {
 
 footer {
   background-color: rgb(82, 82, 82);
+  padding-bottom: 40px;
 }
 
 #contacts a {
@@ -306,7 +314,7 @@ footer {
   #contacts {
     padding-left: 110px;
     padding-top: 15px;
-    padding-bottom: 15px;
+    padding-bottom: 25px;
     display: flex;
   }
   #info {
