@@ -1,0 +1,115 @@
+body {
+  background-color: aqua;
+}
+
+#ability1 {
+
+}
+
+#ability2 {
+
+}
+
+header {
+  padding-left: 20px;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+#themain {
+  padding-left: 20px;
+  display: grid;
+  grid-template-columns: repeat(10, 130px);
+  justify-items: start;   
+  align-items: start;     
+  gap: 10px;            
+     
+
+}
+
+#pokemon {
+  width: 360px;
+  height: 50px;
+  margin-left: 20px;
+  font-size: 1rem;
+ 
+  background-color: rgb(217, 255, 0);
+
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#topsection {
+  width: 100%;
+  background-color: rgb(54, 54, 224);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+#belowheader {
+  padding-left: 20px;
+
+}
+
+#img {
+  padding-left: 375px;
+}
+#ball {
+  padding-left: 375px;
+}
+
+@media screen and (max-width: 1233px){
+  #themain {
+    justify-content: left;
+    display: grid;
+    grid-template-columns: 150px ; 
+    grid-template-rows: auto ; 
+    grid-template-areas:
+    "one"
+    "two"
+    "three"
+    "four"
+    "five"
+
+  }  
+  #img {
+    padding-left: 0px;
+  }
+  #ball {
+    padding-left: 0px;
+  }
+
+}
+
+@media screen and (max-width: 600px) {
+  #img {
+    width: 300px;
+    height: 300px;
+  }
+  #pokemon {
+  width: 280px;
+  height: 50px;
+  margin-left: 20px;
+  font-size: 1rem;
+ 
+  background-color: rgb(217, 255, 0);
+
+  }
+  header {
+  padding-left: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  }
+
+  
+
+}
+
+@media screen and (max-width: 350px) {
+  #ball {
+    width: 50px;
+    height: 50px;
+  }
+}
