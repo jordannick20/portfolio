@@ -1,0 +1,275 @@
+.g-loading-overlay {
+  position: fixed;
+  z-index: 999;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  overflow: show;
+  margin: auto;
+  display: block;
+  background-color: rgb(0, 0, 0);
+    color: rgb(19, 123, 207);
+    font-size: 70px;
+    font-weight: bold;
+    background-color: rgb(0, 0, 0);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    animation: glowShift 3s infinite alternate;
+    font-family: 'Orbitron', sans-serif;
+}
+
+body {
+  margin: 0px;
+  background-color: rgb(196, 194, 99);
+  font-family: 'Orbitron', sans-serif;
+
+}
+
+header {
+    color: rgb(19, 123, 207);
+    font-size: 50px;
+    font-weight: bold;
+    background-color: rgb(0, 0, 0);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    white-space: nowrap;
+    animation: glowShift 3s infinite alternate;
+    font-family: 'Orbitron', sans-serif;
+
+}
+
+
+#subheading {
+   
+    color: rgb(186, 255, 255);
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 0px;
+    font-weight: bold;
+    font-size: 30px;
+    font-family: 'Orbitron', sans-serif;
+
+}
+
+#cartbar{
+    width: 290px;
+    height: 50px;
+    background: rgb(0, 0, 0);
+    position: absolute;
+    left: 1500px;
+    bottom: 780px;
+    font-size: 40px;
+    color:lime;
+    
+}
+
+a:hover {
+    color:rgb(186, 255, 255);
+    cursor: pointer;
+    
+}
+
+a {
+    color: lime;
+    
+}
+
+
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 55px;
+    padding-top: 15px;
+    padding-left: 200px;
+    font-size: 23px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+}
+
+nav a {
+    color: black;
+    text-decoration: none;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+nav img {
+
+    height: 100px;
+    width: 100px;
+}
+
+nav a:hover {
+    transform: scale(1.2);
+    transition: 0.4s ease;
+    text-decoration: underline;
+}
+
+
+
+#sellers {
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    margin-top: 0px;
+
+}
+
+#alien-sidebar {
+    position: fixed;
+    left: 0;
+    bottom: 200px;
+    width: 180px;
+    background: black;
+    padding: 10px;
+    height: 40vh;
+    overflow-y: auto;
+    font-family: "Comic Sans MS", "Courier New", monospace;
+}
+
+#howmenybar {
+    padding-top: 15px;
+    width: 500px;
+    height: 270px;
+    background: rgb(175, 125, 31);
+    position: relative;
+    left: 700px;
+    top:10px;
+
+}
+
+#descriptbar {
+    width: 350px;
+    height: 500px;
+    background: rgb(122, 89, 28);
+    color: white;
+
+}
+
+#alien-centerbar {
+    position: fixed;
+    right: 490px;
+    bottom: 100px;
+    width: 900px;
+    background: rgb(53, 53, 53);
+    padding: 10px;
+    height: 800px;
+    overflow-y: auto;
+    font-family: "Comic Sans MS", "Courier New", monospace;
+    color: white;
+
+}
+
+#alienp {
+    display: flex;
+    justify-content: center;
+    gap: 400px;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 20px;
+}
+
+#brokeloser {
+    padding-top: 100px;
+    text-align: center;
+    font-size: 120px;
+
+}
+
+
+
+#imagesforpage {
+
+    padding-top: 70px;
+    column-gap: 150px;
+    row-gap: 50px;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 250px 250px 250px 250px;
+    grid-template-rows: 375px 375px 375px; 
+    grid-template-areas:
+    "one""two"
+    "three""four"
+    "five""six" 
+
+}
+
+#imagesforpage img:hover {
+    cursor: pointer;
+}
+#imagesforpage img {
+    height: 250px;
+    width: 100%;
+    
+}
+
+#imagesforpage section p {
+    margin-top: 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color:rgb(247, 248, 248);
+    text-align: center;
+
+}
+
+.image-box {
+    color: white;
+    background: rgb(122, 89, 28);
+    width: 250px;
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+}
+
+#descriptcont {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+
+}
+
+#alien-sidebar img {
+    height: 100%;
+    width: 100%;
+}
+
+#itempage-image {
+    width: 500px;
+    height: 500px;
+
+}
+
+
+#item-container {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+
+@keyframes glowShift {
+    from {
+        color: black;
+        text-shadow: 0 0 5px lime;
+    }
+    to {
+        color: lime;
+        text-shadow: 0 0 20px lime;
+    }
+}
+    
