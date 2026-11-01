@@ -1,0 +1,58 @@
+﻿body {
+  margin-top: 30px;
+}
+
+.star {
+  font-size: 30px;
+  color: gray;
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+.star.selected {
+  color: gold;
+}
+
+.lastforreview {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #0d6efd;
+  margin-bottom: 20px;
+  width: 75%;
+
+}
+
+body {
+  background-image: url("/images/my2potato.jpg");
+}
+
+#star-rating {
+  background-color: white;
+  width: 200px;
+
+}
+
+#comcontainer {
+  margin-bottom: 20px;
+  border: 6px solid white;
+  background-color: white;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  width: 70%;
+}
+
+#comstar {
+  font-size: 30px;
+}
+
+/* img {
+  transform: scaleX(-1);
+} */
+
+@media screen and (max-width: 768px) {
+  img {
+    width: 280px;
+    height: auto;
+  }
+
+
+}
