@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link rel="stylesheet" href="./css/styles.css">
+        <title>Jordan Nicholson about me</title>
+    </head>
+    <body>
+        <div class="g-loading-overlay"></div>
+        <main id="p-page">
+        <nav>
+            <a href="/index.html">Home</a>
+            <a href="/aboutme.html">About me</a>
+            <a href="/portfolio.html">Portfolio</a>
+            <a href="/resume.html">Resume</a>  
+            <a href="/contact.html">Contacts</a>  
+        </nav>
+        <header id="s-header">jordannicholson.ca</header>
+        <p id="stuff">Let's Connect</p>
+        <div id="theform">
+            <div id="metext">
+                <div class="links">
+                    <a href="https://www.linkedin.com/in/jordan-nicholson-252410405/">
+                        LinkedIn
+                    </a>
+
+                    <a href="https://github.com/jordannick20">
+                        GitHub
+                    </a>
+
+                    <a href="mailto:nicholsonjordan48@gmail.com">
+                        Email
+                    </a>
+                </div>
+                <p id="stuff">Send Me A Message</p>
+                <form action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="access_key" value="6fc56ae8-af29-4174-9de1-fbdfb64aee24">
+                    <input type="text" name="name" placeholder="First and last name" required>
+                    <input type="email" name="email" placeholder="Your email" required>
+                    <textarea name="message" placeholder="Your Message" required></textarea>
+                    <button type="submit">Submit Form</button>
+                </form>
+
+            </div>
+        </div>
+        </main>
+        <script type="module" src="/src/main.js"></script>
+    </body>
+</html>
