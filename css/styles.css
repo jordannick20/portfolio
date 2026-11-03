@@ -238,11 +238,12 @@ footer {
 }
 
 #thing{
-  gap: 20px;
+  gap: 40px;
+  
 }
 footer{
   background-color: #333;
-  margin-top: 32px;
+  margin-top: 52px;
 }
 
 #abitaboutme {
@@ -484,6 +485,15 @@ footer{
     color: black;
     background-color: rgb(127, 219, 255);
   }
+  #theform {
+    display: flex;
+    justify-content: center;
+  }
+
+  #metext {
+    text-align: center;
+  }
+
   #me {
     padding-left: 5px;
     display: block;
@@ -514,9 +524,10 @@ footer{
     transition:0.3s;
   }
   .links {
-  display: flex;
-  gap: 1rem;
-  padding-bottom: 60px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
 
   }
 
