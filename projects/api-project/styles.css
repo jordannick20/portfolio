@@ -27,6 +27,7 @@ header {
   padding-left: 20px;
   font-size: 40px;
   font-weight: bold;
+  color: rgb(222, 247, 253);
 }
 
 #themain {
@@ -63,6 +64,9 @@ body {
 
 #belowheader {
   padding-left: 20px;
+  padding-bottom: 20px;
+  color: rgb(222, 247, 253);
+  font-weight: bold;
 
 }
 
