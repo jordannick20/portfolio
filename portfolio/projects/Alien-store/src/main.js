@@ -1,3 +1,5 @@
+import addKey from "./Toolkit"
+
 const ads = [
     `
         <div class="alien-ad">
@@ -181,6 +183,36 @@ if (window.location.pathname.includes("Checkout.html")) {
 console.log(item.price);
 console.log(item.img);
 };
+
+const pages = [
+    "index.html",
+    "weapons.html",
+    "Creatures.html",
+    "gadgets.html",
+    "drugs.html",
+    "Materials.html"
+];
+
+addKey(nextPage, "ArrowRight");
+addKey(previousPage, "ArrowLeft");
+
+function nextPage() {
+    const current = window.location.pathname.split("/").pop();
+    const index = pages.indexOf(current);
+
+    if (index < pages.length - 1) {
+        window.location.href = pages[index + 1];
+    }
+}
+
+function previousPage() {
+    const current = window.location.pathname.split("/").pop();
+    const index = pages.indexOf(current);
+
+    if (index > 0) {
+        window.location.href = pages[index - 1];
+    }
+}
 
 if (name === "zombie-in-cage")
     document.getElementById("descriptcont").innerHTML =
