@@ -269,7 +269,7 @@ footer{
 
 /*----------------------------------------*/
 .resume-page {
-  background: #f4f4f4;
+
   padding: 40px 20px;
 }
 
@@ -280,7 +280,6 @@ footer{
 
 .resume-page a:hover {
   color: black;
-  text-decoration: underline;
 }
 
 .resume-actions {
@@ -289,18 +288,26 @@ footer{
   margin-bottom: 25px;
 }
 
-.download-btn {
-  display: inline-block;
-  background: #539b76;
+.resume-page .download-btn {
   color: white;
-  padding: 12px 22px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: bold;
+}
+
+.download-btn {  
+    padding:12px 20px;
+    border:1px solid #87ceeb;
+    border-radius:8px;
+    text-decoration:none;
+    height: 100px;
+    width: 150px;
+    font-size: 30px;
+    font-weight: bold;
+    transition:0.3s;
 }
 
 .download-btn:hover {
-  background: #25583e;
+    background:#87ceeb;
+    color:black;
+    text-decoration:none;
 }
 
 .resume-paper {
