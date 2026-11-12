@@ -47,7 +47,7 @@ main {
   text-decoration: none;
   font-size: 60px;
   font-weight: 700;
-  color: black;
+  color: white;
 }
 
 #linkedin:hover {
@@ -213,6 +213,14 @@ section p {
   display: flex;
   align-items: center;
   align-items: right;
+}
+
+#social i{
+  color: white;
+}
+
+#social i:hover {
+  color: grey;
 }
 
 footer {
