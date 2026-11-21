@@ -1,3 +1,4 @@
+import addKey from "./Toolkit"
 const ads = [
     `
         <div class="alien-ad">
@@ -89,11 +90,12 @@ if (window.location.pathname.includes("itempage.html")) {
         
 
     });
-
+    alert("inside item page");
     let params = new URLSearchParams(window.location.search);
 
     let img = params.get("img");
     let name = params.get("name");
+    alert(name);
     let price = Number(params.get("price"));
 
     selectedPrice = price;
