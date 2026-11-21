@@ -21,14 +21,14 @@ let yesbutton;
 let selectedPrice = 0;
 
 
-secondbox = document.getElementById("alien-centerbar")
-secondbox.hidden = true;
-brokeloser = document.getElementById("brokeloser")
-brokeloser.hidden = true;
-alienimage = document.getElementById("glorper")
-alienimage.hidden = false;
+secondbox = document.getElementById("alien-centerbar");
+if (secondbox) secondbox.hidden = true;
 
+brokeloser = document.getElementById("brokeloser");
+if (brokeloser) brokeloser.hidden = true;
 
+alienimage = document.getElementById("glorper");
+if (alienimage) alienimage.hidden = false;
 
 let theinput = document.getElementById("theinput")
 let theinput2 = document.getElementById("theinput2")
@@ -42,89 +42,22 @@ if (plus && theinput) {
     });
 }
 
-if (window.location.pathname.includes("Materials.html")) {
+document.querySelectorAll(".item").forEach(img => {
+    img.addEventListener("click", () => {
 
-    document.querySelectorAll(".item").forEach(img => {
-        img.addEventListener("click", () => {
-            localStorage.setItem("lastpage", window.location.pathname);
-            selectedPrice = Number(img.dataset.price);
-            let src = img.getAttribute("src");
-            let name = img.dataset.name;
-            window.location.href = `itempage.html?img=${src}&name=${name}&price=${img.dataset.price}`;
-        });
+        localStorage.setItem(
+            "lastpage",
+            window.location.pathname
+        );
+
+        let src = img.getAttribute("src");
+        let name = img.dataset.name;
+        let price = img.dataset.price;
+
+        window.location.href =
+            `itempage.html?img=${src}&name=${name}&price=${price}`;
     });
-}
-
-if (window.location.pathname.includes("Creatures.html")) {
-
-    document.querySelectorAll(".item").forEach(img => {
-        img.addEventListener("click", () => {
-            localStorage.setItem("lastpage", window.location.pathname);
-            selectedPrice = Number(img.dataset.price);
-            let src = img.getAttribute("src");
-            let name = img.dataset.name;
-
-            window.location.href = `itempage.html?img=${src}&name=${name}&price=${img.dataset.price}`;
-        });
-    });
-}
-
-if (window.location.pathname.includes("index.html")) {
-
-    document.querySelectorAll(".item").forEach(img => {
-        img.addEventListener("click", () => {
-            localStorage.setItem("lastpage", window.location.pathname);
-            selectedPrice = Number(img.dataset.price);
-            let src = img.getAttribute("src");
-            let name = img.dataset.name;
-
-            window.location.href = `itempage.html?img=${src}&name=${name}&price=${img.dataset.price}`;
-        });
-    });
-}
-
-if (window.location.pathname.includes("drugs.html")) {
-
-    document.querySelectorAll(".item").forEach(img => {
-        img.addEventListener("click", () => {
-            localStorage.setItem("lastpage", window.location.pathname);
-            selectedPrice = Number(img.dataset.price);
-            let src = img.getAttribute("src");
-            let name = img.dataset.name;
-
-            window.location.href = `itempage.html?img=${src}&name=${name}&price=${img.dataset.price}`;
-        });
-    });
-}
-
-if (window.location.pathname.includes("gadgets.html")) {
-
-    document.querySelectorAll(".item").forEach(img => {
-        img.addEventListener("click", () => {
-            localStorage.setItem("lastpage", window.location.pathname);
-            selectedPrice = Number(img.dataset.price);
-            let src = img.getAttribute("src");
-            let name = img.dataset.name;
-
-            window.location.href = `itempage.html?img=${src}&name=${name}&price=${img.dataset.price}`;
-        });
-    });
-}
-
-if (window.location.pathname.includes("weapons.html")) {
-
-    document.querySelectorAll(".item").forEach(img => {
-        img.addEventListener("click", () => {
-            localStorage.setItem("lastpage", window.location.pathname);
-            selectedPrice = Number(img.dataset.price);
-            let src = img.getAttribute("src");
-            let name = img.dataset.name;
-
-            window.location.href = `itempage.html?img=${src}&name=${name}&price=${img.dataset.price}`;
-            
-        });
-    });
-}
+});
 
 let minus = document.getElementById("minus")
 
@@ -461,50 +394,69 @@ function showNextAdd() {
 }
 
 function showPopUp() {
+
+    if (!secondbox) return;
+
     secondbox.hidden = false;
 
-    nobutton = document.getElementById("nobutton")
-    nobutton.hidden = false;
+    nobutton = document.getElementById("nobutton");
+    yesbutton = document.getElementById("yesbutton");
 
-    nobutton.addEventListener("click", () => {
-        brokeloser.hidden = false;
-        alienimage.hidden = true;
+    if (!nobutton || !yesbutton) return;
+
+    nobutton.hidden = false;
+    yesbutton.hidden = false;
+
+    nobutton.onclick = () => {
+
+        if (brokeloser)
+            brokeloser.hidden = false;
+
+        if (alienimage)
+            alienimage.hidden = true;
+
         yesbutton.hidden = true;
         nobutton.hidden = true;
 
-        setTimeout(() => {secondbox.hidden = true;}, 1000);});
+        setTimeout(() => {
+            secondbox.hidden = true;
+        }, 1000);
+    };
 
-    yesbutton = document.getElementById("yesbutton")
-    yesbutton.hidden = false
+    yesbutton.onclick = () => {
 
-    yesbutton.addEventListener("click", () => {
-        brokeloser.hidden = true;
-        alienimage.hidden = true;
+        if (brokeloser)
+            brokeloser.hidden = true;
+
+        if (alienimage)
+            alienimage.hidden = true;
+
         yesbutton.hidden = true;
         nobutton.hidden = true;
         secondbox.hidden = true;
-        window.location.href = `itempage.html?img=images/glorper-pet.jpg&name=glorper-pet`;
 
-    })
-
+        window.location.href =
+            "itempage.html?img=images/glorper-pet.jpg&name=glorper-pet&price=1000000";
+    };
 }
 
 window.addEventListener("DOMContentLoaded", () => {
 
     const overlay = document.querySelector(".g-loading-overlay");
-    const page = document.querySelector("#p-page");
+const page = document.querySelector("#p-page");
 
-    let spinner = new Spinner({
+let spinner = null;
+
+if (overlay) {
+    spinner = new Spinner({
         color: "#00FF00",
         lines: 8,
         length: 30,
         width: 12,
         radius: 25,
         speed: 2
-
-        
-
     }).spin(overlay);
+}
 
     window.addEventListener("pageshow", (event) => {
     if (event.persisted) {
@@ -514,29 +466,43 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
     function hideLoading() {
+
+    if (spinner) {
         spinner.stop();
+    }
+
+    if (overlay) {
         overlay.style.display = "none";
+    }
+
+    if (page) {
         page.classList.add("loaded");
     }
+}
 
     // | makes it global!!! |
     // V                    V
     window.showLoading = function () {
-        overlay.style.display = "block";
 
-        spinner = new Spinner({
-            color: "#00FF00",
-            lines: 8,
-            length: 30,
-            width: 12,
-            radius: 25,
-            speed: 2
-        }).spin(overlay);
+    if (!overlay) return;
 
+    overlay.style.display = "block";
+
+    spinner = new Spinner({
+        color: "#00FF00",
+        lines: 8,
+        length: 30,
+        width: 12,
+        radius: 25,
+        speed: 2
+    }).spin(overlay);
+
+    if (page) {
         page.classList.remove("loaded");
-
-        setTimeout(hideLoading, 300);
     }
+
+    setTimeout(hideLoading, 300);
+};
 
     window.addEventListener("load", () => setTimeout(hideLoading, 300));
     
