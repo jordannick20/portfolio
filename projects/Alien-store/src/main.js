@@ -97,7 +97,7 @@ if (window.location.pathname.includes("drugs.html")) {
     });
 }
 
-if (window.location.pathname.includes("Gadgets.html")) {
+if (window.location.pathname.includes("gadgets.html")) {
 
     document.querySelectorAll(".item").forEach(img => {
         img.addEventListener("click", () => {
@@ -111,7 +111,7 @@ if (window.location.pathname.includes("Gadgets.html")) {
     });
 }
 
-if (window.location.pathname.includes("Weapons.html")) {
+if (window.location.pathname.includes("weapons.html")) {
 
     document.querySelectorAll(".item").forEach(img => {
         img.addEventListener("click", () => {
