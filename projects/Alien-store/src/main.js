@@ -90,12 +90,12 @@ if (window.location.pathname.includes("itempage.html")) {
         
 
     });
-    alert("inside item page");
     let params = new URLSearchParams(window.location.search);
 
     let img = params.get("img");
     let name = params.get("name");
-    alert(name);
+
+    document.getElementById("descriptcont").innerHTML = name;
     let price = Number(params.get("price"));
 
     selectedPrice = price;
