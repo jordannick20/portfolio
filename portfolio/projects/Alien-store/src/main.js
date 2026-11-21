@@ -1,188 +1,427 @@
-import addKey from "./Toolkit"
+
+import { addKey } from "./Toolkit.js";
+
+// --------------------------------------------------
+// STORE PATHS
+// --------------------------------------------------
+
+// Finds the root folder of the Alien Store project.
+// This works when hosted inside /projects/Alien-store/.
+const storeRoot = new URL("../", import.meta.url);
+
+function storePage(page) {
+    return new URL(page, storeRoot).href;
+}
+
+// --------------------------------------------------
+// ADVERTISEMENTS
+// --------------------------------------------------
 
 const ads = [
     `
         <div class="alien-ad">
-            <img src="images/ezgif.com-gif-maker.gif" alt="alien gif">
+            <img src="${storePage("images/ezgif.com-gif-maker.gif")}" alt="alien gif">
         </div>
     `,
     `
         <div class="alien-ad">
-            <img src="images/ezgif.com-gif-maker2.gif" alt="alien gif">
+            <img src="${storePage("images/ezgif.com-gif-maker2.gif")}" alt="alien gif">
         </div>
-    
     `
 ];
 
 let currentad = 0;
+
+// --------------------------------------------------
+// GLOBAL VARIABLES
+// --------------------------------------------------
+
 let secondbox;
 let brokeloser;
 let alienimage;
 let nobutton;
 let yesbutton;
+
 let selectedPrice = 0;
+let quantity = 0;
 
+// --------------------------------------------------
+// PRODUCT DESCRIPTIONS
+// --------------------------------------------------
 
-secondbox = document.getElementById("alien-centerbar")
-secondbox.hidden = true;
-brokeloser = document.getElementById("brokeloser")
-brokeloser.hidden = true;
-alienimage = document.getElementById("glorper")
-alienimage.hidden = false;
+const descriptions = {
+    "zombie-in-cage": "A hostile zombie contained in a steel cage. It transmits infection to humans through bites or scratches.",
 
+    "bolt_pistoll": "The Bolt Pistol is a high caliber firearm that shoots rocket propelled rounds. Once the round penetrates a target, it detonates, easily killing heavily armored foes.",
 
+    "MK-rifle": "A simple bullpup rifle chambered in 5.56.",
 
-let theinput = document.getElementById("theinput")
-let theinput2 = document.getElementById("theinput2")
-let plus = document.getElementById("plus")
+    "space-weed": "Premium space cannabis with 50% THC content. These buds will get any alien faded as fuck.",
 
-if (plus && theinput) {
-    plus.addEventListener("click", () => { 
-        theinput.value = Number(theinput.value) + selectedPrice;
-        theinput2.value = Number(theinput2.value) + 1;
+    "spacer-wood": "Treated alien wood that is fire resistant, acid resistant, and sandstorm resistant, capable of withstanding the elements of any planet it's placed on. Packed with enough pesticides, fungicides, and herbicides to kill anything that tries to chew on it. We assure you this wood will last for decades.",
 
-    });
+    "Adamantine": "99.9% pure adamantine.",
+
+    "sqwig": "This violent creature attacks any humans it sees. According to orks, it also tastes pretty good.",
+
+    "alien-birth-control": "A pill that prevents the alien you plan to penetrate from becoming pregnant. The last thing you want is to be a father of 72 after a one night stand. Side effects vary depending on species.",
+
+    "chain-sword": "This promethium powered blade can cut through metal better than any conventional blade.",
+
+    "space-coke": "Premium space coke for the best galactic parties.",
+
+    "steel-wood": "The strength of steel with the lightness of wood.",
+
+    "alien-heath-juice": "A health pack that heals all wounds—except heartbreak.",
+
+    "ray-gun": "A ray gun perfect for killing zombies.",
+
+    "light-saber": "A lightsaber: a beam that cuts through anything. May the Force be with you.",
+
+    "implo-grenade": "Instead of blasting everything outward, this grenade violently sucks everything nearby into a compacted ball upon detonation.",
+
+    "dragon_knife_01": "A rare knife with a dragon's talon attached to it.",
+
+    "surasia-surasia-spikerifleartstationcover": "Double the lasers, double the power. Features a steel spike on the front for close quarters combat.",
+
+    "bomb": "A bomb useful for many situations: blast mining, destroying enemies, or collapsing a building when a plane can't take it out.",
+
+    "alien-mininuke": "With a blast equivalent to 100 tons of TNT, nothing will stand in your way.",
+
+    "alien-minigun": "Say hello to my little friend a laser Gatling gun.",
+
+    "tunnel-entity": "A mysterious tunnel entity. Make sure not to turn your back on it.",
+
+    "mutant-wasp": "A giant mutant wasp—terrifying and perfect for sending after your enemies.",
+
+    "possesed-dog": "Don't be concerned when it starts floating in the air and speaking in distorted voices.",
+
+    "alien-bug": "A flying alien insect from a distant planet. They make surprisingly good pets.",
+
+    "x9ela8h944k91": "?????",
+
+    "floating-eye-creature": "Perfect for surveillance.",
+
+    "face-hugger": "Face huggers are parasitic organisms that hatch from Xenomorph eggs. Their sole purpose is to implant an embryo into a living host.",
+
+    "snail_1000x1000": "What do you get when you mix 50% tarantula genes and 50% snail genes into a fertilized Uitkujilniax egg? You get a snidder.",
+
+    "mimic": "Perfect for pranks.",
+
+    "glorper-pet": "One of the rarest organisms in the universe—highly sought after by quadrillionaires.",
+
+    "anti-gravity-belt": "Don't leave footprints on the ceiling.",
+
+    "grapple-hook": "With 100 ft of rope, this bad boy will have you feeling like SpiderMan.",
+
+    "intergalatic-tracker": "Detects signals from halfway across the Milky Way.",
+
+    "invisablity-watch": "I am ze spy.",
+
+    "mindcontrol-headset": "Perfect for someone who has zero friends.",
+
+    "pip-boy": "It's like a computer on your wrist.",
+
+    "power-armor": "Tank bullets, run through brick walls, conquer planets.",
+
+    "sheild-belt": "Prevents you from getting shot but also prevents you from shooting others. Best used in combination with melee weapons.",
+
+    "sonic-screwdriver": "The sonic screwdriver manipulates sound waves, radiation, frequencies, signals, and electromagnetism. It can hack, disable, activate, and control technology—truly a super tool.",
+
+    "space-soilder-armor": "Just like power armor, but worse.",
+
+    "x-ray-goggles": "You better not use these to look through women's clothes, you pervert.",
+
+    "super-serum": "A serum that boosts strength and toughness. Wears off after a week.",
+
+    "hydraserum": "Causes the user to grow massively, increasing strength and muscle mass to monstrous levels. Cannot be reversed.",
+
+    "alien-dewormer": "This medicine kills off any parasite that may have entered your body during your travels.",
+
+    "brain-inhancer": "A super drug developed to increase intelligence. While effective, users become slow once off it. Dangerous side effects may include seizures, suicidality, and brain damage from long term abuse.",
+
+    "other-drug": "This injectable research psychedelic causes hallucinations similar to LSD and DMT, but long term effects are not understood.",
+
+    "blue-alien-drug": "Shooter Juice is given to space soldiers across the galaxy, increasing accuracy and reaction time. Side effects include visual hallucinations, dizziness, eye strain, and long term abuse may cause permanent vision loss or blindness.",
+
+    "alien-powder": "Get buff with swole alien energy!!!",
+
+    "regen-medicin": "Tiny bacteria that use your genetic code to regenerate wounds substantially faster. They last about a week before dying off.",
+
+    "plasteel": "A super metal that is lightweight and extremely durable.",
+
+    "Plutonium_ring": "Do not use it as an engagement ring!",
+
+    "uranium": "Uranium fever has done and got me down.",
+
+    "gold-thing": "Useful for jewelry or electronics.",
+
+    "cobolt-60": "Warning: standing next to it for longer than 5 minutes will give you a lethal dose of radiation.",
+
+    "radioactive-waste": "Glowing green goo!!!",
+
+    "compressed-darkmatter": "The most energy dense compound ever created.",
+
+    "alien-metal": "Like gold, but grey.",
+
+    "alien-wood": "An exotic wood that's great for making expensive furniture.",
+
+    "adimantine": "A rare powerfull metal."
+};
+
+// --------------------------------------------------
+// INITIALIZE ALIEN POPUP
+// --------------------------------------------------
+
+secondbox = document.getElementById("alien-centerbar");
+brokeloser = document.getElementById("brokeloser");
+alienimage = document.getElementById("glorper");
+
+if (secondbox) {
+    secondbox.hidden = true;
 }
 
-if (window.location.pathname.includes("Materials.html")) {
-
-    document.querySelectorAll(".item").forEach(img => {
-        img.addEventListener("click", () => {
-            localStorage.setItem("lastpage", window.location.pathname);
-            selectedPrice = Number(img.dataset.price);
-            let src = img.getAttribute("src");
-            let name = img.dataset.name;
-            window.location.href = `itempage.html?img=${src}&name=${name}&price=${img.dataset.price}`;
-        });
-    });
+if (brokeloser) {
+    brokeloser.hidden = true;
 }
 
-if (window.location.pathname.includes("Creatures.html")) {
-
-    document.querySelectorAll(".item").forEach(img => {
-        img.addEventListener("click", () => {
-            localStorage.setItem("lastpage", window.location.pathname);
-            selectedPrice = Number(img.dataset.price);
-            let src = img.getAttribute("src");
-            let name = img.dataset.name;
-
-            window.location.href = `itempage.html?img=${src}&name=${name}&price=${img.dataset.price}`;
-        });
-    });
+if (alienimage) {
+    alienimage.hidden = false;
 }
 
-if (window.location.pathname.includes("index.html")) {
+// --------------------------------------------------
+// ITEM PAGE
+// --------------------------------------------------
 
-    document.querySelectorAll(".item").forEach(img => {
-        img.addEventListener("click", () => {
-            localStorage.setItem("lastpage", window.location.pathname);
-            selectedPrice = Number(img.dataset.price);
-            let src = img.getAttribute("src");
-            let name = img.dataset.name;
+function initializeItemPage() {
 
-            window.location.href = `itempage.html?img=${src}&name=${name}&price=${img.dataset.price}`;
-        });
-    });
-}
+    const params = new URLSearchParams(window.location.search);
 
-if (window.location.pathname.includes("drugs.html")) {
+    const img = params.get("img");
+    const name = params.get("name");
+    const price = Number(params.get("price"));
 
-    document.querySelectorAll(".item").forEach(img => {
-        img.addEventListener("click", () => {
-            localStorage.setItem("lastpage", window.location.pathname);
-            selectedPrice = Number(img.dataset.price);
-            let src = img.getAttribute("src");
-            let name = img.dataset.name;
+    const description = document.getElementById("descriptcont");
+    const itemImage = document.getElementById("itempage-image");
 
-            window.location.href = `itempage.html?img=${src}&name=${name}&price=${img.dataset.price}`;
-        });
-    });
-}
+    const backbutton = document.getElementById("back");
+    const addtocartbutton = document.getElementById("addtocart");
 
-if (window.location.pathname.includes("gadgets.html")) {
+    const plus = document.getElementById("plus");
+    const minus = document.getElementById("minus");
 
-    document.querySelectorAll(".item").forEach(img => {
-        img.addEventListener("click", () => {
-            localStorage.setItem("lastpage", window.location.pathname);
-            selectedPrice = Number(img.dataset.price);
-            let src = img.getAttribute("src");
-            let name = img.dataset.name;
+    const theinput = document.getElementById("theinput");
+    const theinput2 = document.getElementById("theinput2");
 
-            window.location.href = `itempage.html?img=${src}&name=${name}&price=${img.dataset.price}`;
-        });
-    });
-}
+    // Check that the item information exists.
 
-if (window.location.pathname.includes("weapons.html")) {
-
-    document.querySelectorAll(".item").forEach(img => {
-        img.addEventListener("click", () => {
-            localStorage.setItem("lastpage", window.location.pathname);
-            selectedPrice = Number(img.dataset.price);
-            let src = img.getAttribute("src");
-            let name = img.dataset.name;
-
-            window.location.href = `itempage.html?img=${src}&name=${name}&price=${img.dataset.price}`;
-            
-        });
-    });
-}
-
-let minus = document.getElementById("minus")
-
-if (minus && theinput) {
-    minus.addEventListener("click", () => { 
-        theinput.value = Number(theinput.value) - selectedPrice ;
-        theinput2.value = Number(theinput2.value) - 1;
-
-        if (theinput.value < 1) 
-            theinput.value = 0;
-        if (theinput2.value < 1) 
-            theinput2.value = 0;
-
-    });
-}
-
-
-if (window.location.pathname.includes("itempage.html")) {
-    let backbutton = document.getElementById("back")
-    backbutton.addEventListener("click", () => {
-        let last = localStorage.getItem("lastpage");
-
-        if (last) {
-            window.location.href = last;
-        } else {
-            window.location.href = "/index.html"; // fallback
+    if (!name || !img || !Number.isFinite(price)) {
+        if (description) {
+            description.textContent = "Item information could not be loaded.";
         }
-        showLoading()
-        
 
-    });
-
-    let params = new URLSearchParams(window.location.search);
-
-    let img = params.get("img");
-    let name = params.get("name");
-    let price = Number(params.get("price"));
+        return;
+    }
 
     selectedPrice = price;
 
-    document.getElementById("itempage-image").src = img;
+    // Display product description.
 
-    let addtocartbutton = document.getElementById("addtocart")
-    addtocartbutton.addEventListener("click", () => {
-            localStorage.setItem(name, JSON.stringify({name, price, img}))
+    if (description) {
+        description.textContent =
+            descriptions[name] || "No description available.";
+    }
+
+    // Display product image.
+
+    if (itemImage) {
+        itemImage.src = img;
+        itemImage.alt = name;
+    }
+
+    // Update quantity and total.
+
+    function updateCartTotal() {
+
+        if (theinput) {
+            theinput.value = quantity * selectedPrice;
+        }
+
+        if (theinput2) {
+            theinput2.value = quantity;
+        }
+    }
+
+    // Increase quantity.
+
+    if (plus) {
+        plus.addEventListener("click", () => {
+
+            quantity++;
+
+            updateCartTotal();
+
+        });
+    }
+
+    // Decrease quantity.
+
+    if (minus) {
+        minus.addEventListener("click", () => {
+
+            if (quantity > 0) {
+                quantity--;
+            }
+
+            updateCartTotal();
+
+        });
+    }
+
+    // Add item to localStorage.
+
+    if (addtocartbutton) {
+        addtocartbutton.addEventListener("click", () => {
+
+            if (quantity < 1) {
+                alert("Please select at least one item.");
+                return;
+            }
+
+            const cartItem = {
+                name: name,
+                price: price,
+                img: img,
+                quantity: quantity
+            };
+
+            localStorage.setItem(
+                name,
+                JSON.stringify(cartItem)
+            );
+
+            alert("Item added to your cart!");
+
+        });
+    }
+
+    // Return to previous category.
+
+    if (backbutton) {
+        backbutton.addEventListener("click", () => {
+
+            const last = localStorage.getItem("lastpage");
+
+            if (last && last.startsWith("/")) {
+                window.location.href = last;
+            } else {
+                window.location.href = storePage("index.html");
+            }
+
+        });
+    }
+}
+
+// --------------------------------------------------
+// PRODUCT CLICK EVENTS
+// --------------------------------------------------
+
+function initializeProducts() {
+
+    document.querySelectorAll(".item").forEach(img => {
+
+        img.addEventListener("click", () => {
+
+            const src = img.getAttribute("src");
+            const name = img.dataset.name;
+            const price = img.dataset.price;
+
+            if (!src || !name || price === undefined) {
+                console.error("Product is missing information.");
+                return;
+            }
+
+            // Remember the current category page.
+
+            localStorage.setItem(
+                "lastpage",
+                window.location.pathname
+            );
+
+            // Create a safe URL containing product information.
+
+            const params = new URLSearchParams({
+                img: src,
+                name: name,
+                price: price
+            });
+
+            window.location.href =
+                `${storePage("itempage.html")}?${params.toString()}`;
+
+        });
+
+    });
+}
+
+// --------------------------------------------------
+// CHECKOUT PAGE
+// --------------------------------------------------
+
+function initializeCheckout() {
+
+    const cartItems = [];
+
+    // Find all stored products.
+
+    for (let i = 0; i < localStorage.length; i++) {
+
+        const key = localStorage.key(i);
+
+        if (key === null) continue;
+
+        try {
+
+            const item = JSON.parse(localStorage.getItem(key));
+
+            if (
+                item &&
+                item.name &&
+                typeof item.price === "number"
+            ) {
+                cartItems.push(item);
+            }
+
+        } catch (error) {
+
+            console.error("Could not read cart item:", error);
+
+        }
+    }
+
+    // Display cart information in the console.
+
+    console.log("Shopping cart:");
+
+    let total = 0;
+
+    cartItems.forEach(item => {
+
+        console.log("Name:", item.name);
+        console.log("Price:", item.price);
+        console.log("Quantity:", item.quantity);
+        console.log("Image:", item.img);
+
+        total += item.price * (item.quantity || 1);
+
     });
 
-if (window.location.pathname.includes("Checkout.html")) {
-    let item = JSON.parse(
-    localStorage.getItem(name)
-    )
+    console.log("Total:", total);
+}
 
-
-console.log(item.price);
-console.log(item.img);
-};
+// --------------------------------------------------
+// PAGE NAVIGATION WITH ARROW KEYS
+// --------------------------------------------------
 
 const pages = [
     "index.html",
@@ -193,268 +432,44 @@ const pages = [
     "Materials.html"
 ];
 
-addKey(nextPage, "ArrowRight");
-addKey(previousPage, "ArrowLeft");
-
 function nextPage() {
+
     const current = window.location.pathname.split("/").pop();
+
     const index = pages.indexOf(current);
 
-    if (index < pages.length - 1) {
-        window.location.href = pages[index + 1];
+    if (index >= 0 && index < pages.length - 1) {
+
+        window.location.href = storePage(pages[index + 1]);
+
     }
 }
 
 function previousPage() {
+
     const current = window.location.pathname.split("/").pop();
+
     const index = pages.indexOf(current);
 
     if (index > 0) {
-        window.location.href = pages[index - 1];
+
+        window.location.href = storePage(pages[index - 1]);
+
     }
 }
 
-if (name === "zombie-in-cage")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>A hostile zombie contained in a steel cage. It transmits infection to humans through bites or scratches.</div>";
+addKey(nextPage, "ArrowRight");
+addKey(previousPage, "ArrowLeft");
 
-if (name === "bolt_pistoll")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>The Bolt Pistol is a high caliber firearm that shoots rocket propelled rounds. Once the round penetrates a target, it detonates, easily killing heavily armored foes.</div>";
-
-if (name === "MK-rifle")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>A simple bullpup rifle chambered in 5.56.</div>";
-
-if (name === "space-weed")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Premium space cannabis with 50% THC content. These buds will get any alien faded as fuck.</div>";
-
-if (name === "spacer-wood")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Treated alien wood that is fire resistant, acid resistant, and sandstorm resistant, capable of withstanding the elements of any planet it's placed on. Packed with enough pesticides, fungicides, and herbicides to kill anything that tries to chew on it. We assure you this wood will last for decades.</div>";
-
-if (name === "Adamantine")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>99.9% pure adamantine.</div>";
-
-if (name === "sqwig")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>This violent creature attacks any humans it sees. According to orks, it also tastes pretty good.</div>";
-
-if (name === "alien-birth-control")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>A pill that prevents the alien you plan to penetrate from becoming pregnant. The last thing you want is to be a father of 72 after a one night stand. Side effects vary depending on species.</div>";
-
-if (name === "chain-sword")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>This promethium powered blade can cut through metal better than any conventional blade.</div>";
-
-if (name === "space-coke")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Premium space coke for the best galactic parties.</div>";
-
-if (name === "steel-wood")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>The strength of steel with the lightness of wood.</div>";
-
-if (name === "alien-heath-juice")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>A health pack that heals all wounds—except heartbreak.</div>";
-
-if (name === "ray-gun")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>A ray gun perfect for killing zombies.</div>";
-
-if (name === "light-saber")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>A lightsaber: a beam that cuts through anything. May the Force be with you.</div>";
-
-if (name === "implo-grenade")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Instead of blasting everything outward, this grenade violently sucks everything nearby into a compacted ball upon detonation.</div>";
-
-if (name === "dragon_knife_01")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>A rare knife with a dragon's talon attached to it.</div>";
-
-if (name === "surasia-surasia-spikerifleartstationcover")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Double the lasers, double the power. Features a steel spike on the front for close quarters combat.</div>";
-
-if (name === "bomb")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>A bomb useful for many situations: blast mining, destroying enemies, or collapsing a building when a plane can't take it out.</div>";
-
-if (name === "alien-mininuke")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>With a blast equivalent to 100 tons of TNT, nothing will stand in your way.</div>";
-
-if (name === "alien-minigun")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Say hello to my little friend a laser Gatling gun.</div>";
-
-if (name === "tunnel-entity")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>A mysterious tunnel entity. Make sure not to turn your back on it.</div>";
-
-if (name === "mutant-wasp")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>A giant mutant wasp—terrifying and perfect for sending after your enemies.</div>";
-
-if (name === "possesed-dog")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Don't be concerned when it starts floating in the air and speaking in distorted voices.</div>";
-
-if (name === "alien-bug")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>A flying alien insect from a distant planet. They make surprisingly good pets.</div>";
-
-if (name === "x9ela8h944k91")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>?????</div>";
-
-if (name === "floating-eye-creature")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Perfect for surveillance.</div>";
-
-if (name === "face-hugger")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Face huggers are parasitic organisms that hatch from Xenomorph eggs. Their sole purpose is to implant an embryo into a living host.</div>";
-
-if (name === "snail_1000x1000")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>What do you get when you mix 50% tarantula genes and 50% snail genes into a fertilized Uitkujilniax egg? You get a snidder.</div>";
-
-if (name === "mimic")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Perfect for pranks.</div>";
-
-if (name === "glorper-pet")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>One of the rarest organisms in the universe—highly sought after by quadrillionaires.</div>";
-
-if (name === "anti-gravity-belt")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Don't leave footprints on the ceiling.</div>";
-
-if (name === "grapple-hook")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>With 100 ft of rope, this bad boy will have you feeling like SpiderMan.</div>";
-
-if (name === "intergalatic-tracker")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Detects signals from halfway across the Milky Way.</div>";
-
-if (name === "invisablity-watch")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>I am ze spy.</div>";
-
-if (name === "mindcontrol-headset")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Perfect for someone who has zero friends.</div>";
-
-if (name === "pip-boy")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>It's like a computer on your wrist.</div>";
-
-if (name === "power-armor")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Tank bullets, run through brick walls, conquer planets.</div>";
-
-if (name === "sheild-belt")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Prevents you from getting shot but also prevents you from shooting others. Best used in combination with melee weapons.</div>";
-
-if (name === "sonic-screwdriver")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>The sonic screwdriver manipulates sound waves, radiation, frequencies, signals, and electromagnetism. It can hack, disable, activate, and control technology—truly a super tool.</div>";
-
-if (name === "space-soilder-armor")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Just like power armor, but worse.</div>";
-
-if (name === "x-ray-goggles")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>You better not use these to look through women's clothes, you pervert.</div>";
-
-if (name === "super-serum")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>A serum that boosts strength and toughness. Wears off after a week.</div>";
-
-if (name === "hydraserum")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Causes the user to grow massively, increasing strength and muscle mass to monstrous levels. Cannot be reversed.</div>";
-
-if (name === "alien-dewormer")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>This medicine kills off any parasite that may have entered your body during your travels.</div>";
-
-if (name === "brain-inhancer")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>A super drug developed to increase intelligence. While effective, users become slow once off it. Dangerous side effects may include seizures, suicidality, and brain damage from long term abuse.</div>";
-
-if (name === "other-drug")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>This injectable research psychedelic causes hallucinations similar to LSD and DMT, but long term effects are not understood.</div>";
-
-if (name === "blue-alien-drug")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Shooter Juice is given to space soldiers across the galaxy, increasing accuracy and reaction time. Side effects include visual hallucinations, dizziness, eye strain, and long term abuse may cause permanent vision loss or blindness.</div>";
-
-if (name === "alien-powder")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Get buff with swole alien energy!!!</div>";
-
-if (name === "regen-medicin")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Tiny bacteria that use your genetic code to regenerate wounds substantially faster. They last about a week before dying off.</div>";
-
-if (name === "plasteel")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>A super metal that is lightweight and extremely durable.</div>";
-
-if (name === "Plutonium_ring")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Do not use it as an engagement ring!</div>";
-
-if (name === "uranium")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Uranium fever has done and got me down.</div>";
-
-if (name === "gold-thing")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Useful for jewelry or electronics.</div>";
-
-if (name === "cobolt-60")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Warning: standing next to it for longer than 5 minutes will give you a lethal dose of radiation.</div>";
-
-if (name === "radioactive-waste")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Glowing green goo!!!</div>";
-
-if (name === "compressed-darkmatter")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>The most energy dense compound ever created.</div>";
-
-if (name === "alien-metal")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>Like gold, but grey.</div>";
-
-if (name === "alien-wood")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>An exotic wood that's great for making expensive furniture.</div>";
-
-if (name === "adimantine")
-    document.getElementById("descriptcont").innerHTML =
-    "<div>A rare powerfull metal.</div>";
-
-}
-
+// --------------------------------------------------
+// CHANGE ADVERTISEMENTS
+// --------------------------------------------------
 
 function showNextAdd() {
-    let box = document.getElementById("alien-ad")
+
+    const box = document.getElementById("alien-ad");
+
+    if (!box) return;
 
     box.innerHTML = ads[currentad];
 
@@ -462,71 +477,110 @@ function showNextAdd() {
 
 }
 
+// --------------------------------------------------
+// ALIEN POPUP
+// --------------------------------------------------
+
 function showPopUp() {
+
+    if (!secondbox) return;
+
     secondbox.hidden = false;
 
-    nobutton = document.getElementById("nobutton")
+    nobutton = document.getElementById("nobutton");
+    yesbutton = document.getElementById("yesbutton");
+
+    if (!nobutton || !yesbutton) return;
+
     nobutton.hidden = false;
+    yesbutton.hidden = false;
 
-    nobutton.addEventListener("click", () => {
-        brokeloser.hidden = false;
-        alienimage.hidden = true;
+    // User chooses not to buy the Glorper.
+
+    nobutton.onclick = () => {
+
+        if (brokeloser) {
+            brokeloser.hidden = false;
+        }
+
+        if (alienimage) {
+            alienimage.hidden = true;
+        }
+
         yesbutton.hidden = true;
         nobutton.hidden = true;
 
-        setTimeout(() => {secondbox.hidden = true;}, 1000);});
+        setTimeout(() => {
 
-    yesbutton = document.getElementById("yesbutton")
-    yesbutton.hidden = false
+            secondbox.hidden = true;
 
-    yesbutton.addEventListener("click", () => {
-        brokeloser.hidden = true;
-        alienimage.hidden = true;
+        }, 1000);
+
+    };
+
+    // User chooses to buy the Glorper.
+
+    yesbutton.onclick = () => {
+
+        if (brokeloser) {
+            brokeloser.hidden = true;
+        }
+
+        if (alienimage) {
+            alienimage.hidden = true;
+        }
+
         yesbutton.hidden = true;
         nobutton.hidden = true;
+
         secondbox.hidden = true;
-        window.location.href = `itempage.html?img=images/glorper-pet.jpg&name=glorper-pet`;
 
-    })
+        const params = new URLSearchParams({
+            img: "images/glorper-pet.jpg",
+            name: "glorper-pet",
+            price: "1000000"
+        });
 
+        window.location.href =
+            `${storePage("itempage.html")}?${params.toString()}`;
+
+    };
 }
 
-window.addEventListener("DOMContentLoaded", () => {
+// --------------------------------------------------
+// LOADING SPINNER
+// --------------------------------------------------
+
+function initializeLoading() {
 
     const overlay = document.querySelector(".g-loading-overlay");
-    const page = document.querySelector("#p-page");
 
-    let spinner = new Spinner({
-        color: "#00FF00",
-        lines: 8,
-        length: 30,
-        width: 12,
-        radius: 25,
-        speed: 2
-
-        
-
-    }).spin(overlay);
-
-    window.addEventListener("pageshow", (event) => {
-    if (event.persisted) {
-        hideLoading();
-    }
-
-});
+    let spinner = null;
 
     function hideLoading() {
-        spinner.stop();
-        overlay.style.display = "none";
-        page.classList.add("loaded");
+
+        if (spinner) {
+            spinner.stop();
+            spinner = null;
+        }
+
+        if (overlay) {
+            overlay.style.display = "none";
+        }
+
     }
 
-    // | makes it global!!! |
-    // V                    V
     window.showLoading = function () {
+
+        if (!overlay || !window.Spinner) return;
+
         overlay.style.display = "block";
 
-        spinner = new Spinner({
+        if (spinner) {
+            spinner.stop();
+        }
+
+        spinner = new window.Spinner({
             color: "#00FF00",
             lines: 8,
             length: 30,
@@ -535,29 +589,94 @@ window.addEventListener("DOMContentLoaded", () => {
             speed: 2
         }).spin(overlay);
 
-        page.classList.remove("loaded");
+        setTimeout(hideLoading, 300);
+
+    };
+
+    // Hide the spinner after the page loads.
+
+    window.addEventListener("load", () => {
 
         setTimeout(hideLoading, 300);
-    }
 
-    window.addEventListener("load", () => setTimeout(hideLoading, 300));
-    
-    document.querySelectorAll("#imagesforpage img").forEach(otherlink => {
-        otherlink.addEventListener("click", showLoading);
     });
 
-    window.addEventListener("load", () => setTimeout(hideLoading, 300));
+    // Handle browser back and forward navigation.
+
+    window.addEventListener("pageshow", event => {
+
+        if (event.persisted) {
+            hideLoading();
+        }
+
+    });
+
+    // Show spinner when clicking product images.
+
+    document.querySelectorAll("#imagesforpage img").forEach(img => {
+
+        img.addEventListener("click", () => {
+
+            if (window.showLoading) {
+                window.showLoading();
+            }
+
+        });
+
+    });
+
+    // Show spinner when navigating between pages.
 
     document.querySelectorAll("nav a").forEach(link => {
-        link.addEventListener("click", showLoading);
+
+        link.addEventListener("click", () => {
+
+            if (window.showLoading) {
+                window.showLoading();
+            }
+
+        });
+
     });
-    
+
+}
+
+// --------------------------------------------------
+// INITIALIZE THE WEBSITE
+// --------------------------------------------------
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const currentPage = window.location.pathname.toLowerCase();
+
+    // Product category pages.
+
+    initializeProducts();
+
+    // Item details page.
+
+    if (currentPage.endsWith("/itempage.html")) {
+        initializeItemPage();
+    }
+
+    // Checkout page.
+
+    if (currentPage.endsWith("/checkout.html")) {
+        initializeCheckout();
+    }
+
+    // Loading spinner.
+
+    initializeLoading();
+
+    // Advertisements.
+
+    showNextAdd();
+
+    setInterval(showNextAdd, 8000);
+
+    // Alien popup.
+
+    setTimeout(showPopUp, 20000);
+
 });
-
-
-
-showNextAdd();
-
-setInterval(showNextAdd, 8000);
-
-setTimeout(showPopUp, 20000)
